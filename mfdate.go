@@ -56,20 +56,20 @@ func (d *MfDate) Day() int {
 	return d.base.Day()
 }
 
+func (d *MfDate) Time() time.Time {
+	return *d.base
+}
+
 func (d *MfDate) After(arg MfDate) bool {
-	return d.base.After(arg.getTime())
+	return d.base.After(arg.Time())
 }
 
 func (d *MfDate) Before(arg MfDate) bool {
-	return d.base.Before(arg.getTime())
+	return d.base.Before(arg.Time())
 }
 
 func (d *MfDate) Equals(arg MfDate) bool {
-	return d.base.Equal(arg.getTime())
-}
-
-func (d *MfDate) getTime() time.Time {
-	return *d.base
+	return d.base.Equal(arg.Time())
 }
 
 func (d *MfDate) AddMonthResetDay(mm int) MfDate {

@@ -48,11 +48,11 @@ func (r Range) Equals(arg Range) bool {
 }
 
 func (r Range) StartMonth() int {
-	return int(r.start.getTime().Month())
+	return int(r.start.Time().Month())
 }
 
 func (r Range) EndMonth() int {
-	return int(r.end.getTime().Month())
+	return int(r.end.Time().Month())
 }
 
 func (r Range) Start() MfDate {
