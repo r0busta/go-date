@@ -312,3 +312,44 @@ func TestMfDate_IsZero(t *testing.T) {
 		})
 	}
 }
+
+func TestMfDate_String(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name string
+		date date.MfDate
+		want string
+	}{
+		{
+			name: "NewMfDate creates date from the current time",
+			date: date.NewMfDate(),
+			want: date.NewMfDateFromTime(time.Now()).String(),
+		},
+		{
+			date: date.NewMfDateFromDate(2021, 10, 4),
+			want: "Oct 4, 2021",
+		},
+		{
+			date: date.NewMfDateFromTime(time.Time{}),
+			want: "Jan 1, 0001",
+		},
+		{
+			date: date.NewMfDateFromTime(time.Date(2021, 10, 4, 0, 0, 0, 0, time.UTC)),
+			want: "Oct 4, 2021",
+		},
+		{
+			date: date.NewMfDateFromTime(time.Date(2021, 10, 4, 23, 59, 59, 0, time.UTC)),
+			want: "Oct 4, 2021",
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			if got := tt.date.String(); got != tt.want {
+				t.Errorf("MfDate.String() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
