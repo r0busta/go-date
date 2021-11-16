@@ -353,3 +353,49 @@ func TestMfDate_String(t *testing.T) {
 		})
 	}
 }
+
+func TestMfDate_Format(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name   string
+		date   date.MfDate
+		layout string
+		want   string
+	}{
+		{
+			date:   date.NewMfDateFromDate(2021, 10, 4),
+			layout: time.RFC822,
+			want:   "04 Oct 21 00:00 UTC",
+		},
+		{
+			date:   date.NewMfDateFromDate(2021, 10, 4),
+			layout: time.RFC3339Nano,
+			want:   "2021-10-04T00:00:00Z",
+		},
+		{
+			date:   date.NewMfDateFromTime(time.Time{}),
+			layout: "2006-01-02T15:04:05Z",
+			want:   "0001-01-01T00:00:00Z",
+		},
+		{
+			date:   date.NewMfDateFromTime(time.Date(2021, 10, 4, 0, 0, 0, 0, time.UTC)),
+			layout: "2006-01-02T15:04:05Z",
+			want:   "2021-10-04T00:00:00Z",
+		},
+		{
+			date:   date.NewMfDateFromTime(time.Date(2021, 10, 4, 23, 59, 59, 0, time.UTC)),
+			layout: "2006-01-02T15:04:05Z",
+			want:   "2021-10-04T00:00:00Z",
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			if got := tt.date.Format(tt.layout); got != tt.want {
+				t.Errorf("MfDate.String() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

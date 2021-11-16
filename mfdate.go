@@ -101,3 +101,7 @@ func (d MfDate) DayBefore(arg MfDate) bool {
 func (d MfDate) String() string {
 	return d.base.Format(mfDateStringLayout)
 }
+
+func (d MfDate) Format(l string) string {
+	return d.base.Format(l)
+}
