@@ -18,6 +18,11 @@ func TestMfDate_YearMonthEqual(t *testing.T) {
 		want bool
 	}{
 		{
+			date: date.NewMfDateFromTime(time.Time{}),
+			arg:  date.NewMfDateFromTime(time.Time{}),
+			want: true,
+		},
+		{
 			date: date.NewMfDateFromDate(2021, 8, 31),
 			arg:  date.NewMfDateFromDate(2021, 8, 31),
 			want: true,
